@@ -1,0 +1,834 @@
+/* ==========================================================================
+   AuraCalc — Modern Responsive Calculator Stylesheet
+   ========================================================================== */
+
+/* --- Custom Properties & Design Tokens --- */
+:root {
+  /* Default: Dark Theme */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --bg-gradient: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 60%, #020617 100%);
+  --card-bg: rgba(30, 41, 59, 0.72);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --card-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.65), 0 0 30px -10px rgba(99, 102, 241, 0.15);
+  
+  --display-bg: rgba(15, 23, 42, 0.65);
+  --display-border: rgba(255, 255, 255, 0.08);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --btn-num-bg: rgba(51, 65, 85, 0.55);
+  --btn-num-hover: rgba(71, 85, 105, 0.75);
+  --btn-num-text: #f1f5f9;
+  --btn-num-border: rgba(255, 255, 255, 0.08);
+  --btn-num-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+
+  --btn-op-bg: rgba(99, 102, 241, 0.2);
+  --btn-op-hover: rgba(99, 102, 241, 0.35);
+  --btn-op-text: #818cf8;
+  --btn-op-border: rgba(99, 102, 241, 0.3);
+
+  --btn-fn-bg: rgba(45, 55, 72, 0.45);
+  --btn-fn-hover: rgba(45, 55, 72, 0.75);
+  --btn-fn-text: #38bdf8;
+  --btn-fn-border: rgba(56, 189, 248, 0.2);
+
+  --btn-utility-bg: rgba(71, 85, 105, 0.35);
+  --btn-utility-hover: rgba(71, 85, 105, 0.6);
+  --btn-utility-text: #cbd5e1;
+  --btn-utility-border: rgba(255, 255, 255, 0.08);
+
+  --btn-danger-bg: rgba(239, 68, 68, 0.2);
+  --btn-danger-hover: rgba(239, 68, 68, 0.35);
+  --btn-danger-text: #f87171;
+  --btn-danger-border: rgba(239, 68, 68, 0.3);
+
+  --btn-equals-bg: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+  --btn-equals-hover: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #c026d3 100%);
+  --btn-equals-text: #ffffff;
+  --btn-equals-shadow: 0 8px 24px -4px rgba(99, 102, 241, 0.5);
+
+  --badge-bg: #6366f1;
+  --badge-text: #ffffff;
+
+  --history-bg: rgba(15, 23, 42, 0.95);
+  --history-border: rgba(255, 255, 255, 0.1);
+  --history-item-bg: rgba(30, 41, 59, 0.45);
+  --history-item-hover: rgba(51, 65, 85, 0.6);
+
+  --tab-active-bg: rgba(99, 102, 241, 0.2);
+  --tab-active-text: #a5b4fc;
+  --tab-active-border: rgba(99, 102, 241, 0.4);
+
+  --scrollbar-thumb: rgba(148, 163, 184, 0.3);
+  --transition-speed: 0.25s;
+}
+
+/* --- Light Mode Theme Tokens --- */
+[data-theme="light"] {
+  --bg-gradient: radial-gradient(circle at 50% 0%, #e0e7ff 0%, #f1f5f9 55%, #e2e8f0 100%);
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(255, 255, 255, 0.9);
+  --card-shadow: 0 25px 50px -12px rgba(100, 116, 139, 0.25), 0 0 25px -5px rgba(99, 102, 241, 0.12);
+
+  --display-bg: rgba(248, 250, 252, 0.85);
+  --display-border: rgba(226, 232, 240, 0.9);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  --btn-num-bg: #ffffff;
+  --btn-num-hover: #f8fafc;
+  --btn-num-text: #1e293b;
+  --btn-num-border: rgba(203, 213, 225, 0.7);
+  --btn-num-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+  --btn-op-bg: #eef2ff;
+  --btn-op-hover: #e0e7ff;
+  --btn-op-text: #4f46e5;
+  --btn-op-border: rgba(199, 210, 254, 0.8);
+
+  --btn-fn-bg: #f0fdf4;
+  --btn-fn-hover: #dcfce7;
+  --btn-fn-text: #059669;
+  --btn-fn-border: rgba(167, 243, 208, 0.8);
+
+  --btn-utility-bg: #f1f5f9;
+  --btn-utility-hover: #e2e8f0;
+  --btn-utility-text: #334155;
+  --btn-utility-border: rgba(203, 213, 225, 0.8);
+
+  --btn-danger-bg: #fef2f2;
+  --btn-danger-hover: #fee2e2;
+  --btn-danger-text: #dc2626;
+  --btn-danger-border: rgba(254, 202, 202, 0.8);
+
+  --btn-equals-bg: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #9333ea 100%);
+  --btn-equals-hover: linear-gradient(135deg, #4338ca 0%, #6d28d9 50%, #7e22ce 100%);
+  --btn-equals-text: #ffffff;
+  --btn-equals-shadow: 0 8px 20px -3px rgba(79, 70, 229, 0.4);
+
+  --badge-bg: #4f46e5;
+  --badge-text: #ffffff;
+
+  --history-bg: rgba(255, 255, 255, 0.97);
+  --history-border: rgba(226, 232, 240, 0.9);
+  --history-item-bg: #f8fafc;
+  --history-item-hover: #f1f5f9;
+
+  --tab-active-bg: #eef2ff;
+  --tab-active-text: #4338ca;
+  --tab-active-border: #c7d2fe;
+
+  --scrollbar-thumb: rgba(148, 163, 184, 0.4);
+}
+
+/* --- Base & Reset --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(12px, 3vw, 32px);
+  overflow-x: hidden;
+  transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+/* --- Outer Wrapper & Flex Grid --- */
+.calculator-wrapper {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 18px;
+  width: 100%;
+  max-width: 440px;
+  transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.calculator-wrapper.drawer-open {
+  max-width: 780px;
+}
+
+/* --- Main Calculator Card --- */
+.calculator-card {
+  position: relative;
+  flex: 1;
+  background: var(--card-bg);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--card-border);
+  border-radius: 28px;
+  padding: clamp(16px, 4vw, 26px);
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
+  z-index: 10;
+}
+
+/* --- Header Controls --- */
+.calc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 4px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.brand-badge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #d946ef);
+  box-shadow: 0 0 10px rgba(129, 140, 248, 0.8);
+}
+
+.brand-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--text-primary) 40%, var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --- Icon Buttons --- */
+.icon-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--btn-utility-bg);
+  border: 1px solid var(--btn-utility-border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: var(--btn-utility-hover);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.icon-btn:active {
+  transform: scale(0.94);
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--card-bg);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --- Theme Toggle Switch --- */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  width: 56px;
+  height: 32px;
+  border-radius: 20px;
+  background: var(--btn-utility-bg);
+  border: 1px solid var(--btn-utility-border);
+  padding: 3px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.toggle-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transform: translateX(0);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sun-icon {
+  display: none;
+}
+
+.moon-icon {
+  display: block;
+}
+
+[data-theme="light"] .toggle-slider {
+  transform: translateX(24px);
+  background: #ffffff;
+  color: #f59e0b;
+}
+
+[data-theme="light"] .sun-icon {
+  display: block;
+}
+
+[data-theme="light"] .moon-icon {
+  display: none;
+}
+
+/* --- Display Section --- */
+.display-container {
+  position: relative;
+  background: var(--display-bg);
+  border: 1px solid var(--display-border);
+  border-radius: 18px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 110px;
+  text-align: right;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: border-color var(--transition-speed) ease;
+}
+
+.copy-feedback {
+  position: absolute;
+  top: 10px;
+  left: 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #10b981;
+  color: #ffffff;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.copy-feedback.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.expression-row {
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  color: var(--text-muted);
+  min-height: 1.4em;
+  word-break: break-all;
+  white-space: pre-wrap;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: text;
+}
+
+.result-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.result-value {
+  font-family: var(--font-mono);
+  font-size: clamp(1.8rem, 6.5vw, 2.75rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  word-break: break-all;
+  user-select: text;
+  transition: transform 0.15s ease;
+}
+
+.copy-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.copy-btn:hover {
+  opacity: 1;
+  color: var(--text-primary);
+}
+
+/* --- Mode Tabs --- */
+.mode-tabs {
+  display: flex;
+  gap: 6px;
+  background: var(--display-bg);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--display-border);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 7px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  background: var(--tab-active-bg);
+  color: var(--tab-active-text);
+  border-color: var(--tab-active-border);
+}
+
+/* --- Scientific Keypad Row --- */
+.scientific-keypad {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-8px);
+  transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, transform 0.25s ease;
+}
+
+.scientific-keypad.expanded {
+  max-height: 120px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Keypad Grid --- */
+.keypad-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(8px, 2vw, 12px);
+}
+
+/* --- Keypad Buttons Common --- */
+.btn {
+  position: relative;
+  font-family: var(--font-sans);
+  font-size: clamp(1.05rem, 3.2vw, 1.28rem);
+  font-weight: 500;
+  height: clamp(52px, 12vw, 64px);
+  border-radius: 16px;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transition: transform 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:active, .btn.active-key {
+  transform: scale(0.93);
+}
+
+.btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--badge-bg);
+}
+
+/* Number Buttons */
+.btn-num {
+  background: var(--btn-num-bg);
+  color: var(--btn-num-text);
+  border-color: var(--btn-num-border);
+  box-shadow: var(--btn-num-shadow);
+  font-weight: 600;
+}
+
+.btn-num:hover {
+  background: var(--btn-num-hover);
+}
+
+/* Operator Buttons */
+.btn-operator {
+  background: var(--btn-op-bg);
+  color: var(--btn-op-text);
+  border-color: var(--btn-op-border);
+  font-size: clamp(1.25rem, 3.5vw, 1.45rem);
+  font-weight: 600;
+}
+
+.btn-operator:hover {
+  background: var(--btn-op-hover);
+}
+
+/* Scientific Functions */
+.btn-fn {
+  background: var(--btn-fn-bg);
+  color: var(--btn-fn-text);
+  border-color: var(--btn-fn-border);
+  font-size: 0.88rem;
+  font-weight: 600;
+  height: 42px;
+  border-radius: 12px;
+}
+
+.btn-fn:hover {
+  background: var(--btn-fn-hover);
+}
+
+/* Utility Buttons */
+.btn-utility {
+  background: var(--btn-utility-bg);
+  color: var(--btn-utility-text);
+  border-color: var(--btn-utility-border);
+  font-weight: 600;
+}
+
+.btn-utility:hover {
+  background: var(--btn-utility-hover);
+}
+
+/* Danger / AC Button */
+.btn-danger {
+  background: var(--btn-danger-bg);
+  color: var(--btn-danger-text);
+  border-color: var(--btn-danger-border);
+  font-weight: 700;
+}
+
+.btn-danger:hover {
+  background: var(--btn-danger-hover);
+}
+
+/* Equals Button */
+.btn-equals {
+  background: var(--btn-equals-bg);
+  color: var(--btn-equals-text);
+  box-shadow: var(--btn-equals-shadow);
+  font-size: clamp(1.3rem, 3.8vw, 1.55rem);
+  font-weight: 700;
+}
+
+.btn-equals:hover {
+  background: var(--btn-equals-hover);
+  filter: brightness(1.08);
+}
+
+/* --- Footer Hint --- */
+.calc-footer {
+  text-align: center;
+  padding-top: 2px;
+}
+
+.hint-text {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: -0.01em;
+}
+
+kbd {
+  font-family: var(--font-mono);
+  background: var(--btn-utility-bg);
+  border: 1px solid var(--btn-utility-border);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+/* --- History Drawer (Desktop side-by-side & Mobile overlay) --- */
+.history-drawer {
+  flex: 1;
+  background: var(--card-bg);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--card-border);
+  border-radius: 28px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  max-height: 620px;
+  min-width: 280px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(16px);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: none;
+}
+
+.calculator-wrapper.drawer-open .history-drawer {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--history-border);
+}
+
+.history-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.history-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.clear-history-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--btn-danger-text);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.clear-history-btn:hover {
+  background: var(--btn-danger-bg);
+}
+
+.close-history-btn {
+  background: var(--btn-utility-bg);
+  border: 1px solid var(--btn-utility-border);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.close-history-btn:hover {
+  color: var(--text-primary);
+  background: var(--btn-utility-hover);
+}
+
+/* History List Items */
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
+}
+
+.history-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+.history-item {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--history-item-bg);
+  border: 1px solid var(--history-border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: right;
+}
+
+.history-item:hover {
+  background: var(--history-item-hover);
+  transform: translateY(-1px);
+}
+
+.history-item-expr {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+  word-break: break-all;
+}
+
+.history-item-result {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  word-break: break-all;
+}
+
+.empty-history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 40px 10px;
+}
+
+.empty-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.empty-history p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.empty-sub {
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+/* Mobile Phones (under 640px) */
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+    align-items: flex-start;
+  }
+
+  .calculator-wrapper {
+    max-width: 100%;
+    margin-top: 8px;
+  }
+
+  .calculator-card {
+    border-radius: 22px;
+    padding: 16px 14px;
+    gap: 12px;
+  }
+
+  .btn {
+    height: 52px;
+    border-radius: 14px;
+    font-size: 1.15rem;
+  }
+
+  .btn-fn {
+    height: 38px;
+    font-size: 0.8rem;
+  }
+
+  /* History Drawer turns into full slide-over modal on mobile */
+  .calculator-wrapper.drawer-open .history-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    z-index: 100;
+    padding: 24px 18px;
+    background: var(--history-bg);
+  }
+
+  .close-history-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Ultra small screens (under 360px) */
+@media (max-width: 360px) {
+  .btn {
+    height: 46px;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+
+  .display-container {
+    padding: 12px;
+    min-height: 90px;
+  }
+
+  .result-value {
+    font-size: 1.6rem;
+  }
+}
+
